@@ -1,0 +1,10 @@
+Readability
+Extensibility --> (Add an other game)
+Correctness
+
+
+Features :-
+
+1) GameState should indicate an enum ( PENDING , TIED , OVER) --> (done)
+2) If there is no way a user can win , then we need to indicate that the gameState is tied.
+2) if the gameState is not pending then and If made a move we need to throw an error to the user

@@ -1,23 +1,23 @@
 package org.example.boards;
 
 
-import org.example.*;
+import org.example.TicTacToeMove;
 import org.example.cells.TicTacToeCell;
+import org.example.game.Board;
+import org.example.game.Cell;
+import org.example.game.GameState;
+import org.example.game.Move;
+import org.example.players.Entity;
+import org.example.rulengines.RuleEngine;
+import org.example.rulengines.TicTacToeRuleEngine;
 
 public class TicTacToeBoard implements Board {
 
     private String cells[][];
 
 
-    public Player getPreviousPlayer() {
-        return previousPlayer;
-    }
+    private RuleEngine ruleEngine;
 
-    public void setPreviousPlayer(Player previousPlayer) {
-        this.previousPlayer = previousPlayer;
-    }
-
-    private Player previousPlayer;
 
     public TicTacToeBoard(){
         cells = new String[3][3];
@@ -26,92 +26,53 @@ public class TicTacToeBoard implements Board {
                 cells[i][j]="-";
             }
         }
+        this.ruleEngine = new TicTacToeRuleEngine();
     }
     public void move(Move move) throws Exception {
-        Player player = move.getPlayer();
-        if(this.getPreviousPlayer()!=null && player.equals(previousPlayer)){
-            throw new Exception("SamePlayer played twice");
+        if(move instanceof TicTacToeMove){
+            if(ruleEngine.checkMove(move,this)){
+                TicTacToeMove move1 = ((TicTacToeMove) move);
+                TicTacToeCell cell = move1.getCell();
+                int row = cell.getRow();
+                int col = cell.getCol();
+                cells[row][col] = move.getEntity().getPlayerSymbol();
+                ruleEngine.setPreviousEntity(move.getEntity());
+            }
+            else {
+                throw new Exception("Invalid Move");
+            }
         }
         else {
-            this.setPreviousPlayer(player);
-        }
-        Cell cell = move.getCell();
-        if(!cell.validate()){
-            throw new Exception("Invalid Cell");
-        }
-        if (cell instanceof TicTacToeCell) {
-            TicTacToeCell ticTacToeCell = (TicTacToeCell) cell;
-            int row = ticTacToeCell.getRow();
-            int col = ticTacToeCell.getCol();
-           if (!cells[row][col].equals("-")) {
-                throw new Exception("Invalid move!");
-           }
-           else {
-                cells[row][col] = player.getPlayerSymbol();
-           }
-        } else {
-            throw new Exception("Invalid Cell");
+            throw new Exception("Invalid Move");
         }
     }
 
-    public GameState getState(){
-        // row check and col check and diagonal check and rev diag check
-        boolean isWon = false;
-        String playerSymbol = "-";
-        for(int i=0;i<3;i++){
-            boolean isWin = true;
-            String firstChar = cells[i][0];
-            if(firstChar.equals("-")){continue;}
-            for(int j=1;j<3;j++){
-                if(!firstChar.equals(cells[i][j])){
-                    isWin = false;
-                    break;
-                }
-            }
-            if(isWin){
-                isWon = isWin;
-                playerSymbol = firstChar;
-            }
+    public boolean isOccupied(Cell cell) throws Exception
+    {
+        if(cell instanceof TicTacToeCell){
+            TicTacToeCell cell1 = (TicTacToeCell) cell;
+            String value = this.cells[cell1.getRow()][cell1.getCol()];
+            return value==null ? false : !value.equals("-");
         }
-        for(int i=0;i<3;i++){
-            boolean isWin = true;
-            String firstChar = cells[i][0];
-            if(firstChar.equals("-")){continue;}
-            for(int j=1;j<3;j++){
-                if(!firstChar.equals(cells[j][i])){
-                    isWin = false;
-                    break;
-                }
-            }
-            if(isWin){
-                isWon = isWin;
-                playerSymbol = firstChar;
-            }
-        }
-        String firstChar = cells[0][0];
-        boolean isDiag = !firstChar.equals("-");
-        for(int i=0;i<3;i++){
-            if(!firstChar.equals(cells[i][i])){
-                isDiag = false;
-                break;
-            }
-        }
-        if(isDiag){
-            isWon = true;
-            playerSymbol = firstChar;
-        }
-        firstChar = cells[0][2];
-        boolean isRevDiag = !firstChar.equals("-");
-        for(int i=0;i<3;i++){
-            if(!firstChar.equals(cells[i][2-i])){
-                isRevDiag = false;
-                break;
-            }
-        }
-        if(isRevDiag){
-            isWon = true;
-            playerSymbol = firstChar;
-        }
-        return new GameState(isWon,playerSymbol);
+        throw new Exception("Invalid Move");
     }
+
+
+    public GameState getState() throws Exception{
+        return ruleEngine.getState(this);
+    }
+
+    public String[][] getCells(){
+        return this.cells;
+    }
+
+    public Move randomMove(Entity entity) throws Exception{
+        return ruleEngine.randomMove(this,entity);
+    }
+
+    public Move smartMove(Entity entity) throws Exception{
+        return ruleEngine.smartMove(this,entity);
+
+    }
+
 }

@@ -1,21 +1,17 @@
 package org.example.cells;
 
 
-import org.example.Cell;
-import org.example.Player;
+import org.example.game.Cell;
 
 public class TicTacToeCell implements Cell {
 
-    public int row;
-    public int col;
+    private int row;
+    private int col;
 
-
-    public TicTacToeCell(int row,int col){
+    public TicTacToeCell(int row,int col) {
         this.row = row;
         this.col = col;
     }
-
-
     public int getRow() {
         return row;
     }
@@ -33,11 +29,6 @@ public class TicTacToeCell implements Cell {
         this.col = col;
     }
 
-    public boolean validate(){
-        if(this.row<0 || this.col<0 || this.row>=3 || this.col>=3){
-            return false;
-        }
-        return true;
-    }
+
 
 }

@@ -1,15 +1,11 @@
-package org.example;
+package org.example.players;
 
-
-
-public class Player {
-
-
+public abstract class Entity {
     private String playerSymbol;
 
     private String name;
 
-    public Player(String name,String playerSymbol){
+    public Entity(String name,String playerSymbol){
         this.name = name;
         this.playerSymbol = playerSymbol;
     }
@@ -34,5 +30,4 @@ public class Player {
     public boolean equals(Player player) {
         return this.name.equals(player.getName()) && this.playerSymbol.equals(player.getPlayerSymbol());
     }
-
 }
