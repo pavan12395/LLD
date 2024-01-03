@@ -30,4 +30,8 @@ public abstract class Entity {
     public boolean equals(Player player) {
         return this.name.equals(player.getName()) && this.playerSymbol.equals(player.getPlayerSymbol());
     }
+
+    public String flip(){
+        return this.playerSymbol.equals("X") ? "O" : "X";
+    }
 }

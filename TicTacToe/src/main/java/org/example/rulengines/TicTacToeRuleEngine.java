@@ -126,7 +126,7 @@ public class TicTacToeRuleEngine extends RuleEngine{
         if(counts.containsKey(symbol) && counts.get(symbol)==2){
            return new TicTacToeMove(vacantCell,entity);
         }
-        String oppSymbol = symbol.equals("X") ? "O" : "X";
+        String oppSymbol = entity.flip();
         if(counts.containsKey(oppSymbol) && counts.get(oppSymbol)==2){
             return new TicTacToeMove(vacantCell,entity);
         }
