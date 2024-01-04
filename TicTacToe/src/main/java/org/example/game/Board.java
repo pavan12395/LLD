@@ -10,4 +10,6 @@ public interface Board {
     abstract void setCell(Cell cell,String value) throws Exception;
 
     abstract String getCell(Cell cell) throws Exception;
+
+    abstract boolean isOccupied(Cell cell) throws Exception;
 }

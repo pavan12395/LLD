@@ -50,4 +50,14 @@ public class TicTacToeBoard implements Board {
         }
     }
 
+    public boolean isOccupied(Cell cell) throws Exception {
+        if(cell instanceof TicTacToeCell){
+            TicTacToeCell cell1 = (TicTacToeCell) cell;
+            return !this.cells[cell1.getRow()][cell1.getCol()].equals("-");
+        }
+        else {
+            throw new Exception("Invalid Cell!");
+        }
+    }
+
 }
