@@ -50,6 +50,10 @@ public class TicTacToeBoard implements Board {
         }
     }
 
+    public String[][] getCells(){
+        return this.cells;
+    }
+
     public boolean isOccupied(Cell cell) throws Exception {
         if(cell instanceof TicTacToeCell){
             TicTacToeCell cell1 = (TicTacToeCell) cell;
@@ -59,5 +63,7 @@ public class TicTacToeBoard implements Board {
             throw new Exception("Invalid Cell!");
         }
     }
+
+
 
 }

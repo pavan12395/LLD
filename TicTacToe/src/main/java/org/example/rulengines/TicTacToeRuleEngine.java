@@ -19,7 +19,9 @@ import javafx.util.Pair;
 
 public class TicTacToeRuleEngine extends RuleEngine{
     public boolean checkMove(Move move, Board board) throws  Exception {
-        return !isEqualsPreviousEntity(move.getEntity()) && validate(move.getCell()) && !board.isOccupied(move.getCell()) && getState(board).getGameResult()!=GameResult.OVER;
+        return !isEqualsPreviousEntity(move.getEntity()) &&
+                validate(move.getCell()) && !board.isOccupied(move.getCell()) &&
+                getState(board).getGameResult()!=GameResult.OVER;
     }
 
     private Pair<Map<String,Integer>,TicTacToeCell> getCountAndVacantCellFromIterator(Iterator<CellValue> iterator){

@@ -12,4 +12,6 @@ public interface Board {
     abstract String getCell(Cell cell) throws Exception;
 
     abstract boolean isOccupied(Cell cell) throws Exception;
+
+    abstract String[][] getCells();
 }
