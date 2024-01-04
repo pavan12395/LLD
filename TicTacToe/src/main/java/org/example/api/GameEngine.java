@@ -1,10 +1,7 @@
 package org.example.api;
 
 
-import org.example.game.Board;
-import org.example.game.BoardType;
-import org.example.game.GameState;
-import org.example.game.Move;
+import org.example.game.*;
 import org.example.boards.TicTacToeBoard;
 import org.example.moves.TicTacToeMove;
 import org.example.rulengines.RuleEngine;
@@ -22,16 +19,16 @@ public class GameEngine {
         ruleEngineMap.put(TicTacToeBoard.class.getName(),new TicTacToeRuleEngine());
     }
     public GameState move(Board board, Move move) throws Exception {
+        RuleEngine ruleEngine = ruleEngineMap.get(TicTacToeBoard.class.getName());
+        GameState gameState = ruleEngine.getState(board);
+        if(gameState.getGameResult().equals(GameResult.OVER)){
+            throw new Exception("Game Over!");
+        }
         if(board instanceof TicTacToeBoard) {
             if(move instanceof TicTacToeMove) {
                 TicTacToeMove move1 = (TicTacToeMove)move;
-                RuleEngine ruleEngine = ruleEngineMap.get(board.getClass().getName());
-                if (ruleEngine.checkMove(move, board)) {
-                    board.setCell(move1.getCell(), move1.getEntity().getPlayerSymbol());
-                    return ruleEngine.getState(board);
-                } else {
-                    throw new Exception("Invalid Move!");
-                }
+                board.setCell(move1.getCell(), move1.getEntity().getPlayerSymbol());
+                return ruleEngine.getState(board);
             }
             else {
                 throw new Exception("Invalid Move!");

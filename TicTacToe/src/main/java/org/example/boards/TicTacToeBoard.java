@@ -4,10 +4,9 @@ package org.example.boards;
 import org.example.cells.Cell;
 import org.example.game.Board;
 
-public class TicTacToeBoard implements Board {
+public class TicTacToeBoard extends Board {
 
     private String cells[][];
-
 
 
     public TicTacToeBoard(){
@@ -19,10 +18,16 @@ public class TicTacToeBoard implements Board {
         }
     }
 
-    public void setCell(Cell cell, String value){
+    public void setCell(Cell cell, String value) throws Exception{
+        if(!this.isOccupied(cell) && !value.equals(getPreviousEntity())) {
             int row = cell.getRow();
             int col = cell.getCol();
             this.cells[row][col] = value;
+            this.setPreviousPlayer(value);
+        }
+        else {
+            throw new Exception("Invalid Move!");
+        }
     }
 
     public String getCell(Cell cell){

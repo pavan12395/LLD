@@ -14,24 +14,6 @@ import java.util.Iterator;
 
 public class TicTacToeRuleEngine extends RuleEngine{
 
-
-    public TicTacToeRuleEngine(){
-        this.setPreviousEntity(null);
-    }
-    public boolean checkMove(Move move, Board board) throws  Exception {
-        if(move instanceof TicTacToeMove) {
-            TicTacToeMove move1 = (TicTacToeMove) move;
-            return !isEqualsPreviousEntity(move.getEntity()) &&
-                    validate(move1.getCell()) && !board.isOccupied(move1.getCell()) &&
-                    getState(board).getGameResult() != GameResult.OVER;
-        }
-        else {
-            throw new Exception("Invalid Move!");
-        }
-    }
-
-
-
     private GameState checkIterator(Iterator<CellValue> iterator) throws Exception {
         String first = null;
         if(!iterator.hasNext()){

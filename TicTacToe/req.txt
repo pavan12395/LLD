@@ -15,6 +15,9 @@ Board --> set and get of the cells
 
 RuleEngine --> Checks all types of conditions on a board
 
+        Conditions :- Only the conditions
+            BoardState --> previousPlayer , occupied or not shouldnt be interfered.
+
 GameEngine --> Manages the Board and Moves
 
 AIEngine --> Should have the ability to getSmartMove and getRandomMove extending Entity.

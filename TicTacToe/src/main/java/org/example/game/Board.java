@@ -2,13 +2,28 @@ package org.example.game;
 
 
 import org.example.cells.Cell;
+import org.example.players.Entity;
 
-public interface Board {
-    abstract void setCell(Cell cell,String value);
+public abstract class Board {
 
-    abstract String getCell(Cell cell);
+    private String previousPlayer;
 
-    abstract boolean isOccupied(Cell cell);
+    public Board(){
+        this.previousPlayer = null;
+    }
 
-    abstract String[][] getCells();
+    protected void setPreviousPlayer(String symbol) {
+        this.previousPlayer = symbol;
+    }
+
+    protected String getPreviousEntity() {
+        return this.previousPlayer;
+    }
+    public abstract void setCell(Cell cell,String value) throws Exception;
+
+    public abstract String getCell(Cell cell);
+
+    public abstract boolean isOccupied(Cell cell);
+
+    public abstract String[][] getCells();
 }
