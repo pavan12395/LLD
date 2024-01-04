@@ -26,4 +26,6 @@ public abstract class Board {
     public abstract boolean isOccupied(Cell cell);
 
     public abstract String[][] getCells();
+
+    protected abstract boolean validate(Cell cell);
 }

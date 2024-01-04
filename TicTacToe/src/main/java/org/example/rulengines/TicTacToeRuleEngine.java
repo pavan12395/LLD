@@ -10,65 +10,52 @@ import org.example.iterators.RowIterator;
 import org.example.moves.TicTacToeMove;
 
 
+import java.util.ArrayList;
 import java.util.Iterator;
 
 public class TicTacToeRuleEngine extends RuleEngine{
 
-    private GameState checkIterator(Iterator<CellValue> iterator) throws Exception {
+    public TicTacToeRuleEngine(){
+        this.rules = new ArrayList<>();
+        for(int i=0;i<3;i++) {
+            final int ii = i;
+            Rule rowRule = new Rule((Board board) -> checkIterator(new RowIterator(board.getCells(), ii)));
+            Rule colRule = new Rule((Board board)->checkIterator(new ColIterator(board.getCells(),ii)));
+            this.rules.add(rowRule);
+            this.rules.add(colRule);
+        }
+        Rule diagonalRule = new Rule((Board board)->checkIterator(new DiagonalIterator(board.getCells(),false)));
+        Rule revDiagonalRule = new Rule((Board board)->checkIterator(new DiagonalIterator(board.getCells(),true)));
+        this.rules.add(diagonalRule);
+        this.rules.add(revDiagonalRule);
+    }
+
+    private String checkIterator(Iterator<CellValue> iterator) {
         String first = null;
         if(!iterator.hasNext()){
-            throw new Exception("Empty Iterator");
+            return "-";
         }
         else {
             first = iterator.next().getValue();
         }
         if(first.equals("-")){
-            return new GameState(GameResult.PENDING,"-");
+            return "-";
         }
         while(iterator.hasNext()){
             if(!iterator.next().getValue().equals(first)){
-                return new GameState(GameResult.PENDING,"-");
+                return "-";
             }
         }
-        return new GameState(GameResult.OVER,first);
+        return first;
     }
 
     public GameState getState(Board board) throws Exception{
-        if(board instanceof TicTacToeBoard) {
-            String[][] cells = board.getCells();
-            GameState gameState;
-            for (int i = 0; i < 3; i++) {
-                RowIterator rowIterator = new RowIterator(cells, i);
-                gameState = checkIterator(rowIterator);
-                if (gameState.getGameResult() == GameResult.OVER) {
-                    return gameState;
-                }
-                ColIterator colIterator = new ColIterator(cells, i);
-                gameState = checkIterator(colIterator);
-                if (gameState.getGameResult() == GameResult.OVER) {
-                    return gameState;
-                }
+        for(Rule rule : this.rules){
+            String winner = rule.getResult(board);
+            if(!winner.equals("-")){
+                return new GameState(GameResult.OVER,winner);
             }
-            DiagonalIterator diagonalIterator = new DiagonalIterator(cells, false);
-            DiagonalIterator revDiagonalIterator = new DiagonalIterator(cells, true);
-            gameState = checkIterator(diagonalIterator);
-            if (gameState.getGameResult() == GameResult.OVER) {
-                return gameState;
-            }
-            gameState = checkIterator(revDiagonalIterator);
-            if (gameState.getGameResult() == GameResult.OVER) {
-                return gameState;
-            }
-            return new GameState(GameResult.PENDING, "-");
         }
-        else {
-            throw new Exception("Invalid Board Exception");
-        }
-    }
-    
-    protected boolean validate(Cell cell){
-            int row = cell.getRow();
-            int col = cell.getCol();
-            return row>=0 && col>=0 && col<=2 && row<=2;
+        return new GameState(GameResult.PENDING,"-");
     }
 }

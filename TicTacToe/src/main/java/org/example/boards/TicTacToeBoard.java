@@ -18,8 +18,14 @@ public class TicTacToeBoard extends Board {
         }
     }
 
+    protected boolean validate(Cell cell){
+        int row = cell.getRow();
+        int col = cell.getCol();
+        return row>=0 && row<=2 && col>=0 && col<=2;
+    }
+
     public void setCell(Cell cell, String value) throws Exception{
-        if(!this.isOccupied(cell) && !value.equals(getPreviousEntity())) {
+        if(!this.isOccupied(cell) && !value.equals(getPreviousEntity()) && validate(cell)) {
             int row = cell.getRow();
             int col = cell.getCol();
             this.cells[row][col] = value;
