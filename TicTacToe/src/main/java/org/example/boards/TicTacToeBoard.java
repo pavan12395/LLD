@@ -26,18 +26,28 @@ public class TicTacToeBoard implements Board {
         }
     }
 
-    public void setCell(Cell cell,String value){
-        TicTacToeCell cell1 = (TicTacToeCell) cell;
-        int row = cell1.getRow();
-        int col = cell1.getCol();
-        this.cells[row][col]=value;
+    public void setCell(Cell cell,String value) throws Exception {
+        if(cell instanceof TicTacToeCell) {
+            TicTacToeCell cell1 = (TicTacToeCell) cell;
+            int row = cell1.getRow();
+            int col = cell1.getCol();
+            this.cells[row][col] = value;
+        }
+        else {
+            throw new Exception("Invalid Cell!");
+        }
     }
 
-    public String getCell(Cell cell){
-        TicTacToeCell cell1 = (TicTacToeCell) cell;
-        int row = cell1.getRow();
-        int col = cell1.getCol();
-        return this.cells[row][col];
+    public String getCell(Cell cell) throws  Exception{
+        if(cell instanceof TicTacToeCell) {
+            TicTacToeCell cell1 = (TicTacToeCell) cell;
+            int row = cell1.getRow();
+            int col = cell1.getCol();
+            return this.cells[row][col];
+        }
+        else {
+            throw new Exception("Invalid Cell!");
+        }
     }
 
 }

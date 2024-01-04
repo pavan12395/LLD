@@ -7,7 +7,7 @@ import org.example.game.Move;
 import org.example.players.Entity;
 
 public interface Board {
-    abstract void setCell(Cell cell,String value);
+    abstract void setCell(Cell cell,String value) throws Exception;
 
-    abstract String getCell(Cell cell);
+    abstract String getCell(Cell cell) throws Exception;
 }
