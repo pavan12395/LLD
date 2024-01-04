@@ -129,8 +129,7 @@ public class TestGamePlay{
             gameEngine.move(board,move1);
             gameEngine.move(board,move2);
             gameEngine.move(board,move3);
-            gameEngine.move(board,move4);
-            GameState gameState = board.getState();
+            GameState gameState = gameEngine.move(board,move4);
             Assert.assertTrue(gameState.getGameResult() == GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
         catch (Exception e){
@@ -157,7 +156,7 @@ public class TestGamePlay{
             gameEngine.move(board,move2);
             gameEngine.move(board,move3);
             gameEngine.move(board,move4);
-            gameEngine.move(board,move5);
+            GameState gameState = gameEngine.move(board,move5);
             Assert.assertTrue(false);
         }
         catch (Exception e){
@@ -181,8 +180,7 @@ public class TestGamePlay{
             gameEngine.move(board,move1);
             gameEngine.move(board,move2);
             gameEngine.move(board,move3);
-            gameEngine.move(board,move4);
-            GameState gameState = board.getState();
+            GameState gameState = gameEngine.move(board,move4);
             Assert.assertTrue(gameState.getGameResult() == GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
         catch (Exception e){
@@ -206,8 +204,7 @@ public class TestGamePlay{
             gameEngine.move(board,move1);
             gameEngine.move(board,move2);
             gameEngine.move(board,move3);
-            gameEngine.move(board,move4);
-            GameState gameState = board.getState();
+            GameState gameState =gameEngine.move(board,move4);
             Assert.assertTrue(gameState.getGameResult()== GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
         catch (Exception e){
@@ -231,8 +228,7 @@ public class TestGamePlay{
             gameEngine.move(board,move1);
             gameEngine.move(board,move2);
             gameEngine.move(board,move3);
-            gameEngine.move(board,move4);
-            GameState gameState = board.getState();
+            GameState gameState = gameEngine.move(board,move4);
             Assert.assertTrue(gameState.getGameResult()==GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
         catch (Exception e){
@@ -260,8 +256,7 @@ public class TestGamePlay{
             gameEngine.move(board,move3);
             gameEngine.move(board,move4);
             gameEngine.move(board,move5);
-            gameEngine.move(board,move6);
-            GameState gameState = board.getState();
+            GameState gameState = gameEngine.move(board,move6);
             Assert.assertTrue(gameState.getGameResult()!=GameResult.OVER && gameState.getWinner()== "-");
         }
         catch (Exception e){
@@ -271,9 +266,3 @@ public class TestGamePlay{
 
 
 }
-
-/*
-XX0
-00X
-X
- */

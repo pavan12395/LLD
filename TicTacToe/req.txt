@@ -13,11 +13,11 @@ Features :-
 
 Board --> set and get of the cells
 
-RuleEngine --> Manages all types of conditions on a board
+RuleEngine --> Checks all types of conditions on a board
 
-GameEngine -->
-        checks for Invalid Move in a Board if not found then make a move
-        etc
+GameEngine --> Manages the Board and Moves
+
+AIEngine --> Should have the ability to getSmartMove and getRandomMove extending Entity.
 
 
 

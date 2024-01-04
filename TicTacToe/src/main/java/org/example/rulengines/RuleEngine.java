@@ -30,8 +30,4 @@ public abstract class RuleEngine {
 
     public abstract GameState getState(Board board) throws Exception;
 
-    public abstract Move randomMove(Board board,Entity entity) throws Exception;
-
-    public abstract Move smartMove(Board board,Entity entity) throws Exception;
-
 }
