@@ -1,4 +1,4 @@
-package org.example;
+package org.example.moves;
 
 
 import org.example.cells.TicTacToeCell;
