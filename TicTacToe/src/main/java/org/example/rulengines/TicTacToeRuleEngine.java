@@ -2,7 +2,7 @@ package org.example.rulengines;
 
 
 import org.example.game.*;
-import org.example.TicTacToeMove;
+import org.example.moves.TicTacToeMove;
 import org.example.boards.TicTacToeBoard;
 import org.example.cells.TicTacToeCell;
 import org.example.iterators.ColIterator;

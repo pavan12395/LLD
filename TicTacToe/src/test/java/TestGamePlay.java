@@ -1,8 +1,7 @@
 package test;
 
 
-import javafx.scene.SubScene;
-import org.example.TicTacToeMove;
+import org.example.moves.TicTacToeMove;
 import org.example.api.GameEngine;
 import org.example.cells.TicTacToeCell;
 import org.example.game.Board;
@@ -24,7 +23,7 @@ public class TestGamePlay{
             Board board = gameEngine.start(Cell.BoardType.TICTACTOE);
             Player player = new Player("1","X");
             TicTacToeMove move = new TicTacToeMove(new TicTacToeCell(-1,-1),player);
-            board.move(move);
+            gameEngine.move(board,move);
             Assert.assertTrue(false);
         }
         catch (Exception e){
@@ -41,8 +40,8 @@ public class TestGamePlay{
             Player player1 = new Player("1","O");
             TicTacToeMove move = new TicTacToeMove(new TicTacToeCell(0,0),player);
             TicTacToeMove move1 = new TicTacToeMove(new TicTacToeCell(0,0),player1);
-            board.move(move);
-            board.move(move1);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
             Assert.assertTrue(false);
         }
         catch (Exception e){
@@ -61,9 +60,9 @@ public class TestGamePlay{
             TicTacToeMove move1 = new TicTacToeMove(new TicTacToeCell(1,0),player);
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(0,1),aiEngine);
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(2,0),player);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
             TicTacToeMove move4 = (TicTacToeMove) aiEngine.makeSmartMove(board);
             TicTacToeCell cell = move4.getCell();
             Assert.assertTrue(cell.getRow()==0 && cell.getCol()==2);
@@ -84,9 +83,9 @@ public class TestGamePlay{
             TicTacToeMove move = new TicTacToeMove(new TicTacToeCell(0,0),player);
             TicTacToeMove move1 = new TicTacToeMove(new TicTacToeCell(1,0),aiEngine);
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(0,1),player);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
             TicTacToeMove move3 = (TicTacToeMove) aiEngine.makeSmartMove(board);
             TicTacToeCell cell = move3.getCell();
             Assert.assertTrue(cell.getRow()==0 && cell.getCol()==2);
@@ -105,8 +104,8 @@ public class TestGamePlay{
             Player secondPlayer = new Player("2","O");
             TicTacToeMove move = new TicTacToeMove(new TicTacToeCell(0,0),firstPlayer);
             TicTacToeMove move1 = new TicTacToeMove(new TicTacToeCell(0,0),secondPlayer);
-            board.move(move);
-            board.move(move1);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
             Assert.assertTrue(false);
         }
         catch(Exception e){
@@ -126,11 +125,11 @@ public class TestGamePlay{
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(0,1),firstPlayer);
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(1,2),secondPlayer);
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(0,2),firstPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
             GameState gameState = board.getState();
             Assert.assertTrue(gameState.getGameResult() == GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
@@ -153,12 +152,12 @@ public class TestGamePlay{
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(1,2),secondPlayer);
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(0,2),firstPlayer);
             TicTacToeMove move5 = new TicTacToeMove(new TicTacToeCell(2,1),secondPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
-            board.move(move5);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
+            gameEngine.move(board,move5);
             Assert.assertTrue(false);
         }
         catch (Exception e){
@@ -178,11 +177,11 @@ public class TestGamePlay{
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(1,0),firstPlayer);
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(1,2),secondPlayer);
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(2,0),firstPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
             GameState gameState = board.getState();
             Assert.assertTrue(gameState.getGameResult() == GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
@@ -203,11 +202,11 @@ public class TestGamePlay{
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(1,1),firstPlayer);
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(1,2),secondPlayer);
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(2,2),firstPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
             GameState gameState = board.getState();
             Assert.assertTrue(gameState.getGameResult()== GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
@@ -228,11 +227,11 @@ public class TestGamePlay{
             TicTacToeMove move2 = new TicTacToeMove(new TicTacToeCell(1,1),firstPlayer);
             TicTacToeMove move3 = new TicTacToeMove(new TicTacToeCell(1,2),secondPlayer);
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(2,0),firstPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
             GameState gameState = board.getState();
             Assert.assertTrue(gameState.getGameResult()==GameResult.OVER && gameState.getWinner()== firstPlayer.getPlayerSymbol());
         }
@@ -255,13 +254,13 @@ public class TestGamePlay{
             TicTacToeMove move4 = new TicTacToeMove(new TicTacToeCell(1,2),firstPlayer);
             TicTacToeMove move5 = new TicTacToeMove(new TicTacToeCell(1,1),secondPlayer);
             TicTacToeMove move6 = new TicTacToeMove(new TicTacToeCell(2,0),firstPlayer);
-            board.move(move);
-            board.move(move1);
-            board.move(move2);
-            board.move(move3);
-            board.move(move4);
-            board.move(move5);
-            board.move(move6);
+            gameEngine.move(board,move);
+            gameEngine.move(board,move1);
+            gameEngine.move(board,move2);
+            gameEngine.move(board,move3);
+            gameEngine.move(board,move4);
+            gameEngine.move(board,move5);
+            gameEngine.move(board,move6);
             GameState gameState = board.getState();
             Assert.assertTrue(gameState.getGameResult()!=GameResult.OVER && gameState.getWinner()== "-");
         }

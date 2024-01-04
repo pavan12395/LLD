@@ -7,14 +7,7 @@ import org.example.game.Move;
 import org.example.players.Entity;
 
 public interface Board {
-    abstract void move(Move move) throws Exception;
+    abstract void setCell(Cell cell,String value);
 
-    abstract boolean isOccupied(Cell cell) throws Exception;
-    abstract GameState getState() throws Exception;
-
-    abstract String[][] getCells();
-
-    abstract Move randomMove(Entity entity) throws  Exception;
-
-    abstract Move smartMove(Entity entity) throws  Exception;
+    abstract String getCell(Cell cell);
 }
