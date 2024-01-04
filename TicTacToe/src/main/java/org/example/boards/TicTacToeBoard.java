@@ -1,15 +1,8 @@
 package org.example.boards;
 
 
-import org.example.moves.TicTacToeMove;
-import org.example.cells.TicTacToeCell;
+import org.example.cells.Cell;
 import org.example.game.Board;
-import org.example.game.Cell;
-import org.example.game.GameState;
-import org.example.game.Move;
-import org.example.players.Entity;
-import org.example.rulengines.RuleEngine;
-import org.example.rulengines.TicTacToeRuleEngine;
 
 public class TicTacToeBoard implements Board {
 
@@ -26,42 +19,24 @@ public class TicTacToeBoard implements Board {
         }
     }
 
-    public void setCell(Cell cell,String value) throws Exception {
-        if(cell instanceof TicTacToeCell) {
-            TicTacToeCell cell1 = (TicTacToeCell) cell;
-            int row = cell1.getRow();
-            int col = cell1.getCol();
+    public void setCell(Cell cell, String value){
+            int row = cell.getRow();
+            int col = cell.getCol();
             this.cells[row][col] = value;
-        }
-        else {
-            throw new Exception("Invalid Cell!");
-        }
     }
 
-    public String getCell(Cell cell) throws  Exception{
-        if(cell instanceof TicTacToeCell) {
-            TicTacToeCell cell1 = (TicTacToeCell) cell;
-            int row = cell1.getRow();
-            int col = cell1.getCol();
+    public String getCell(Cell cell){
+            int row = cell.getRow();
+            int col = cell.getCol();
             return this.cells[row][col];
-        }
-        else {
-            throw new Exception("Invalid Cell!");
-        }
     }
 
     public String[][] getCells(){
         return this.cells;
     }
 
-    public boolean isOccupied(Cell cell) throws Exception {
-        if(cell instanceof TicTacToeCell){
-            TicTacToeCell cell1 = (TicTacToeCell) cell;
-            return !this.cells[cell1.getRow()][cell1.getCol()].equals("-");
-        }
-        else {
-            throw new Exception("Invalid Cell!");
-        }
+    public boolean isOccupied(Cell cell) {
+            return !this.cells[cell.getRow()][cell.getCol()].equals("-");
     }
 
 

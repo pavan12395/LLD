@@ -1,7 +1,6 @@
 package org.example.iterators;
 
 
-import org.example.game.Cell;
 import org.example.game.CellValue;
 
 import java.util.Iterator;

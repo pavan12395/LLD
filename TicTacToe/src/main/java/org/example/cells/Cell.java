@@ -1,14 +1,13 @@
 package org.example.cells;
 
 
-import org.example.game.Cell;
 
-public class TicTacToeCell implements Cell {
+public class Cell {
 
     private int row;
     private int col;
 
-    public TicTacToeCell(int row,int col) {
+    public Cell(int row,int col) {
         this.row = row;
         this.col = col;
     }

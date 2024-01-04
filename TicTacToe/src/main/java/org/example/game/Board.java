@@ -1,17 +1,14 @@
 package org.example.game;
 
 
-import org.example.game.Cell;
-import org.example.game.GameState;
-import org.example.game.Move;
-import org.example.players.Entity;
+import org.example.cells.Cell;
 
 public interface Board {
-    abstract void setCell(Cell cell,String value) throws Exception;
+    abstract void setCell(Cell cell,String value);
 
-    abstract String getCell(Cell cell) throws Exception;
+    abstract String getCell(Cell cell);
 
-    abstract boolean isOccupied(Cell cell) throws Exception;
+    abstract boolean isOccupied(Cell cell);
 
     abstract String[][] getCells();
 }

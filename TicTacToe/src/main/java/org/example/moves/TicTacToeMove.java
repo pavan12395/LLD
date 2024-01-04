@@ -1,33 +1,24 @@
 package org.example.moves;
 
 
-import org.example.cells.TicTacToeCell;
-import org.example.game.Cell;
+import org.example.cells.Cell;
 import org.example.game.Move;
 import org.example.players.Entity;
 
 public class TicTacToeMove extends Move {
 
+    private Cell cell;
 
-    public TicTacToeMove(TicTacToeCell cell, Entity entity) {
-        super(cell,entity);
+    public TicTacToeMove(Cell cell, Entity entity) {
+        super(entity);
+        this.cell = cell;
     }
 
-    @Override
-    public TicTacToeCell getCell() {
-        return (TicTacToeCell) cell;
+    public Cell getCell() {
+        return cell;
     }
-
-
-    @Override
-    public void setCell(Cell cell) throws Exception {
-        if(cell instanceof TicTacToeCell)
-        {
-            this.cell = cell;
-        }
-        else {
-            throw new Exception("Invalid Cell to set for TicTacToeMove");
-        }
+    public void setCell(Cell cell)  {
+        this.cell = cell;
     }
 
 

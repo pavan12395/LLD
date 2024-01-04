@@ -2,9 +2,8 @@ package org.example.players;
 
 
 import javafx.util.Pair;
-import org.example.cells.TicTacToeCell;
+import org.example.cells.Cell;
 import org.example.game.Board;
-import org.example.game.Cell;
 import org.example.game.CellValue;
 import org.example.game.Move;
 import org.example.boards.TicTacToeBoard;
@@ -27,7 +26,7 @@ public class AIEngine extends Entity {
         Random random = new Random();
         if(board instanceof TicTacToeBoard){
             TicTacToeBoard board1 = (TicTacToeBoard) board;
-            TicTacToeCell cell = new TicTacToeCell(0,0);
+            Cell cell = new Cell(0,0);
             while(!board1.isOccupied(cell)){
                 cell.setRow(random.nextInt(3));
                 cell.setCol(random.nextInt(3));
@@ -40,7 +39,7 @@ public class AIEngine extends Entity {
         }
     }
 
-    private Move getPossibleBlockOrComplete(Map<String,Integer> counts, Entity entity, TicTacToeCell vacantCell) {
+    private Move getPossibleBlockOrComplete(Map<String,Integer> counts, Entity entity, Cell vacantCell) {
         String symbol = entity.getPlayerSymbol();
         if(counts.containsKey(symbol) && counts.get(symbol)==2){
             return new TicTacToeMove(vacantCell,entity);
@@ -52,9 +51,9 @@ public class AIEngine extends Entity {
         return null;
     }
 
-    private Pair<Map<String,Integer>,TicTacToeCell> getCountAndVacantCellFromIterator(Iterator<CellValue> iterator){
+    private Pair<Map<String,Integer>,Cell> getCountAndVacantCellFromIterator(Iterator<CellValue> iterator){
         Map<String,Integer> count = new HashMap<>();
-        TicTacToeCell vacantCell = null;
+        Cell vacantCell = null;
         while(iterator.hasNext()){
             CellValue curr = iterator.next();
             String value = curr.getValue();
@@ -63,16 +62,16 @@ public class AIEngine extends Entity {
                 count.put(value, count.get(value) + 1);
             }
             else {
-                vacantCell = new TicTacToeCell(curr.getRow(),curr.getCol());
+                vacantCell = new Cell(curr.getRow(),curr.getCol());
             }
         }
-        Pair<Map<String,Integer>,TicTacToeCell> pair = new Pair<>(count,vacantCell);
+        Pair<Map<String,Integer>,Cell> pair = new Pair<>(count,vacantCell);
         return pair;
     }
 
 
     private Move getPossibleMoveFromIterator(Iterator<CellValue> iterator,Entity entity){
-        Pair<Map<String,Integer>,TicTacToeCell> pair = this.getCountAndVacantCellFromIterator(iterator);
+        Pair<Map<String,Integer>,Cell> pair = this.getCountAndVacantCellFromIterator(iterator);
         Move move = this.getPossibleBlockOrComplete(pair.getKey(),entity,pair.getValue());
         return move;
     }

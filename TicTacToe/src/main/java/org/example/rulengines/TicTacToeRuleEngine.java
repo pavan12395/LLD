@@ -1,12 +1,13 @@
 package org.example.rulengines;
 
 
+import org.example.cells.Cell;
 import org.example.game.*;
 import org.example.boards.TicTacToeBoard;
-import org.example.cells.TicTacToeCell;
 import org.example.iterators.ColIterator;
 import org.example.iterators.DiagonalIterator;
 import org.example.iterators.RowIterator;
+import org.example.moves.TicTacToeMove;
 
 
 import java.util.Iterator;
@@ -18,9 +19,15 @@ public class TicTacToeRuleEngine extends RuleEngine{
         this.setPreviousEntity(null);
     }
     public boolean checkMove(Move move, Board board) throws  Exception {
-        return !isEqualsPreviousEntity(move.getEntity()) &&
-                validate(move.getCell()) && !board.isOccupied(move.getCell()) &&
-                getState(board).getGameResult()!=GameResult.OVER;
+        if(move instanceof TicTacToeMove) {
+            TicTacToeMove move1 = (TicTacToeMove) move;
+            return !isEqualsPreviousEntity(move.getEntity()) &&
+                    validate(move1.getCell()) && !board.isOccupied(move1.getCell()) &&
+                    getState(board).getGameResult() != GameResult.OVER;
+        }
+        else {
+            throw new Exception("Invalid Move!");
+        }
     }
 
 
@@ -77,16 +84,9 @@ public class TicTacToeRuleEngine extends RuleEngine{
         }
     }
     
-    protected boolean validate(Cell cell) throws Exception{
-        if(cell instanceof TicTacToeCell){
-            TicTacToeCell cell1 = (TicTacToeCell) cell;
-            int row = cell1.getRow();
-            int col = cell1.getCol();
+    protected boolean validate(Cell cell){
+            int row = cell.getRow();
+            int col = cell.getCol();
             return row>=0 && col>=0 && col<=2 && row<=2;
-        }
-        else {
-            throw new Exception("Invalid Cell");
-        }
-
     }
 }
