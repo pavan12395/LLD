@@ -1,8 +1,10 @@
 package org.example.api;
 
 
+import javafx.util.Pair;
 import org.example.game.*;
 import org.example.boards.TicTacToeBoard;
+import org.example.players.Entity;
 
 public class GameEngine {
     public GameEngine(){
@@ -19,10 +21,10 @@ public class GameEngine {
         game.move(move);
     }
 
-    public Game start(BoardType boardType) throws Exception {
+    public Game start(BoardType boardType,GameConfig gameConfig) throws Exception {
         if(boardType == BoardType.TICTACTOE) {
             Board board = new TicTacToeBoard();
-            return new Game(board);
+            return new Game(board,gameConfig);
         }
         else {
             throw new Exception("Invalid Board!");

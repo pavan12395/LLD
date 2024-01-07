@@ -30,7 +30,7 @@ public class AIEngine extends Entity {
                 cell.setRow(random.nextInt(3));
                 cell.setCol(random.nextInt(3));
             }
-            Move<TicTacToeCell> move = new Move<>(entity,cell);
+            Move<TicTacToeCell> move = new Move<TicTacToeCell>(entity,cell);
             return move;
         }
         else {
@@ -41,11 +41,11 @@ public class AIEngine extends Entity {
     private Move getPossibleBlockOrComplete(Map<String,Integer> counts, Entity entity, TicTacToeCell vacantCell) {
         String symbol = entity.getPlayerSymbol();
         if(counts.containsKey(symbol) && counts.get(symbol)==2){
-            return new Move<>(entity,vacantCell);
+            return new Move<TicTacToeCell>(entity,vacantCell);
         }
         String oppSymbol = entity.flip().getPlayerSymbol();
         if(counts.containsKey(oppSymbol) && counts.get(oppSymbol)==2){
-            return new Move<>(entity,vacantCell);
+            return new Move<TicTacToeCell>(entity,vacantCell);
         }
         return null;
     }

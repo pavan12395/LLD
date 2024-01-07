@@ -57,27 +57,3 @@ public class GameInfo {
         this.gameState = gameState;
     }
 }
-
-
-class GameInfoBuilder {
-    private GameState gameState;
-
-    private String forkedWinner;
-
-    private boolean isFork;
-
-
-
-    private Map<String,Integer> playerMoves;
-
-    public void setGameState(GameState gameState){this.gameState = gameState;}
-    public void setForkedWinner(String winner){this.forkedWinner= winner;}
-
-    public void setIsFork(boolean isFork){this.isFork = isFork;}
-
-    public void setPlayerMoves(Map<String,Integer> playerMoves){this.playerMoves = playerMoves;}
-
-    public GameInfo build(){
-        return new GameInfo(forkedWinner,isFork,playerMoves,gameState);
-    }
-}

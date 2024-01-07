@@ -13,11 +13,37 @@ import org.junit.Test;
 public class TestGamePlay{
 
 
+
+    @Test
+    public void TestTimedOutPerMove(){
+        Game game = null;
+        Player secondPlayer = null;
+        try {
+            GameEngine gameEngine = new GameEngine();
+            game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(true,true,10,100));
+            Player firstPlayer = new Player("1","X");
+            secondPlayer = new Player("2","O");
+            Move<TicTacToeCell> move = new Move<>(new TicTacToeCell(0,0),firstPlayer,2);
+            Move<TicTacToeCell> move1 = new Move<>(new TicTacToeCell(1,1),secondPlayer,3);
+            Move<TicTacToeCell> move2 = new Move<>(new TicTacToeCell(2,2),firstPlayer,34);
+            game.move(move);
+            game.move(move1);
+            game.move(move2);
+            Assert.assertTrue(false);
+        }
+        catch (Exception e){
+            GameResult result = game.getState().getGameResult();
+            String winner = game.getState().getWinner();;
+            Assert.assertTrue(result.equals(GameResult.TIMED_OUT) && winner.equals(secondPlayer.getPlayerSymbol()));
+        }
+    }
+
+
     @Test
     public void TestInvalidCellMove(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player player = new Player("1","X");
             Move<TicTacToeCell> move = new Move<>(new TicTacToeCell(-1,-1),player);
             gameEngine.move(game,move);
@@ -32,7 +58,7 @@ public class TestGamePlay{
     public void TestOccupiedCellMove(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player player = new Player("1","X");
             Player player1 = new Player("1","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),player);
@@ -50,7 +76,7 @@ public class TestGamePlay{
     public void TestCompleteMoveByAIEngine(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player player = new Player("1","X");
             AIEngine aiEngine = new AIEngine("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),aiEngine);
@@ -73,7 +99,7 @@ public class TestGamePlay{
     public void TestBlockMoveByAIEngine(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player player = new Player("1","X");
             AIEngine aiEngine = new AIEngine("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),player);
@@ -95,7 +121,7 @@ public class TestGamePlay{
         try
         {
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -113,7 +139,7 @@ public class TestGamePlay{
     public void TestFirstPlayerWonRow(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -139,7 +165,7 @@ public class TestGamePlay{
     public void TestMoveAfterGameOver(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -166,7 +192,7 @@ public class TestGamePlay{
     public void TestFirstPlayerWonColumn(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -191,7 +217,7 @@ public class TestGamePlay{
     public void TestFirstPlayerWonDiagonal(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -216,7 +242,7 @@ public class TestGamePlay{
     public void TestFirstPlayerWonRevDiagonal(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,2),firstPlayer);
@@ -241,7 +267,7 @@ public class TestGamePlay{
     public void TestMoreMovesRequired(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -270,7 +296,7 @@ public class TestGamePlay{
     public void TestGameInfoForked(){
         try {
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1", "X");
             Player secondPlayer = new Player("2", "O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -295,7 +321,7 @@ public class TestGamePlay{
     public void TestGameInfoNotForked(){
         try {
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1", "X");
             Player secondPlayer = new Player("2", "O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
@@ -318,7 +344,7 @@ public class TestGamePlay{
     public void TestAllFilled(){
         try{
             GameEngine gameEngine = new GameEngine();
-            Game game = gameEngine.start(BoardType.TICTACTOE);
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
             Player firstPlayer = new Player("1","X");
             Player secondPlayer = new Player("2","O");
             Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
