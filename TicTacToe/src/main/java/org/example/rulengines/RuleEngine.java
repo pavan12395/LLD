@@ -1,5 +1,6 @@
 package org.example.rulengines;
 
+import org.example.boards.Board;
 import org.example.boards.TicTacToeBoard;
 import org.example.game.*;
 import java.util.HashMap;

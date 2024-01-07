@@ -14,7 +14,7 @@ import org.example.rulengines.RuleEngine;
 
 import java.util.*;
 
-public class TicTacToeBoard implements Board {
+public class TicTacToeBoard implements CellBoard {
 
     private String cells[][];
     

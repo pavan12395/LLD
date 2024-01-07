@@ -3,7 +3,7 @@ package org.example.players;
 
 import javafx.util.Pair;
 import org.example.cells.TicTacToeCell;
-import org.example.game.Board;
+import org.example.boards.Board;
 import org.example.cells.TicTacToeCellValue;
 import org.example.game.Move;
 import org.example.boards.TicTacToeBoard;

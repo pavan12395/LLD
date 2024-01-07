@@ -1,5 +1,6 @@
 package org.example.game;
 
+import org.example.boards.Board;
 import org.example.players.Entity;
 import org.example.rulengines.RuleEngine;
 

@@ -1,19 +1,17 @@
 package org.example.rulengines;
 
-import org.example.game.Board;
-import org.example.game.GameInfo;
-import org.example.game.GameState;
+import org.example.boards.Board;
 
 import java.util.function.Function;
 
-public class Rule<T extends Board,R>{
-    private Function<T,R> function;
+public class Rule<CellBoard,R>{
+    private Function<CellBoard,R> function;
 
-    public Rule(Function<T,R> function){
+    public Rule(Function<CellBoard,R> function){
         this.function = function;
     }
 
-    public R getResult(T board){
+    public R getResult(CellBoard board){
         return function.apply(board);
     }
 }
