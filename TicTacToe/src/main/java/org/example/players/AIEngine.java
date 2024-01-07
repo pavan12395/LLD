@@ -2,15 +2,14 @@ package org.example.players;
 
 
 import javafx.util.Pair;
-import org.example.cells.Cell;
+import org.example.cells.TicTacToeCell;
 import org.example.game.Board;
-import org.example.game.CellValue;
+import org.example.cells.TicTacToeCellValue;
 import org.example.game.Move;
 import org.example.boards.TicTacToeBoard;
 import org.example.iterators.ColIterator;
 import org.example.iterators.DiagonalIterator;
 import org.example.iterators.RowIterator;
-import org.example.moves.TicTacToeMove;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -26,12 +25,12 @@ public class AIEngine extends Entity {
         Random random = new Random();
         if(board instanceof TicTacToeBoard){
             TicTacToeBoard board1 = (TicTacToeBoard) board;
-            Cell cell = new Cell(0,0);
+            TicTacToeCell cell = new TicTacToeCell(0,0);
             while(!board1.isOccupied(cell)){
                 cell.setRow(random.nextInt(3));
                 cell.setCol(random.nextInt(3));
             }
-            TicTacToeMove move = new TicTacToeMove(cell,entity);
+            Move<TicTacToeCell> move = new Move<>(entity,cell);
             return move;
         }
         else {
@@ -39,67 +38,68 @@ public class AIEngine extends Entity {
         }
     }
 
-    private Move getPossibleBlockOrComplete(Map<String,Integer> counts, Entity entity, Cell vacantCell) {
+    private Move getPossibleBlockOrComplete(Map<String,Integer> counts, Entity entity, TicTacToeCell vacantCell) {
         String symbol = entity.getPlayerSymbol();
         if(counts.containsKey(symbol) && counts.get(symbol)==2){
-            return new TicTacToeMove(vacantCell,entity);
+            return new Move<>(entity,vacantCell);
         }
-        String oppSymbol = entity.flip();
+        String oppSymbol = entity.flip().getPlayerSymbol();
         if(counts.containsKey(oppSymbol) && counts.get(oppSymbol)==2){
-            return new TicTacToeMove(vacantCell,entity);
+            return new Move<>(entity,vacantCell);
         }
         return null;
     }
 
-    private Pair<Map<String,Integer>,Cell> getCountAndVacantCellFromIterator(Iterator<CellValue> iterator){
+    private Pair<Map<String,Integer>,TicTacToeCell> getCountAndVacantCellFromIterator(Iterator<TicTacToeCellValue> iterator){
         Map<String,Integer> count = new HashMap<>();
-        Cell vacantCell = null;
+        TicTacToeCell vacantCell = null;
         while(iterator.hasNext()){
-            CellValue curr = iterator.next();
+            TicTacToeCellValue curr = iterator.next();
             String value = curr.getValue();
             if(!value.equals("-")) {
                 count.putIfAbsent(value, 0);
                 count.put(value, count.get(value) + 1);
             }
             else {
-                vacantCell = new Cell(curr.getRow(),curr.getCol());
+                vacantCell = new TicTacToeCell(curr.getRow(),curr.getCol());
             }
         }
-        Pair<Map<String,Integer>,Cell> pair = new Pair<>(count,vacantCell);
+        Pair<Map<String,Integer>,TicTacToeCell> pair = new Pair<>(count,vacantCell);
         return pair;
     }
 
 
-    private Move getPossibleMoveFromIterator(Iterator<CellValue> iterator,Entity entity){
-        Pair<Map<String,Integer>,Cell> pair = this.getCountAndVacantCellFromIterator(iterator);
-        Move move = this.getPossibleBlockOrComplete(pair.getKey(),entity,pair.getValue());
+    private Move getPossibleMoveFromIterator(Iterator<TicTacToeCellValue> iterator,Entity entity){
+        Pair<Map<String,Integer>,TicTacToeCell> pair = this.getCountAndVacantCellFromIterator(iterator);
+        Move<TicTacToeCell> move = this.getPossibleBlockOrComplete(pair.getKey(),entity,pair.getValue());
         return move;
     }
 
     public Move makeSmartMove(Board board) throws Exception{
-        Move move=null;
-        String[][] cells = board.getCells();
-        if(board instanceof TicTacToeBoard){
-            for(int i=0;i<3;i++){
-                RowIterator rowIterator = new RowIterator(cells,i);
-                move = this.getPossibleMoveFromIterator(rowIterator,this);
-                if(move!=null){
+        if(board instanceof TicTacToeBoard) {
+            TicTacToeBoard board1 = (TicTacToeBoard)board;
+            Move<TicTacToeCell> move = null;
+            String[][] cells = board1.getCells();
+                for (int i = 0; i < 3; i++) {
+                    RowIterator rowIterator = new RowIterator(cells, i);
+                    move = this.getPossibleMoveFromIterator(rowIterator, this);
+                    if (move != null) {
+                        return move;
+                    }
+                    ColIterator colIterator = new ColIterator(cells, i);
+                    move = this.getPossibleMoveFromIterator(colIterator, this);
+                    if (move != null) {
+                        return move;
+                    }
+                }
+                DiagonalIterator diagonalIterator = new DiagonalIterator(cells, false);
+                move = this.getPossibleMoveFromIterator(diagonalIterator, this);
+                if (move != null) {
                     return move;
                 }
-                ColIterator colIterator = new ColIterator(cells,i);
-                move = this.getPossibleMoveFromIterator(colIterator,this);
-                if(move!=null){
-                    return move;
-                }
-            }
-            DiagonalIterator diagonalIterator = new DiagonalIterator(cells,false);
-            move = this.getPossibleMoveFromIterator(diagonalIterator,this);
-            if(move!=null){
+                DiagonalIterator revDiagonalIterator = new DiagonalIterator(cells, false);
+                move = this.getPossibleMoveFromIterator(revDiagonalIterator, this);
                 return move;
-            }
-            DiagonalIterator revDiagonalIterator = new DiagonalIterator(cells,false);
-            move = this.getPossibleMoveFromIterator(revDiagonalIterator,this);
-            return move;
         }
         else {
             throw new Exception("Invalid Board Exception");

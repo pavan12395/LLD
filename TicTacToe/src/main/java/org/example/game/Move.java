@@ -4,11 +4,19 @@ package org.example.game;
 import org.example.cells.Cell;
 import org.example.players.Entity;
 
-public abstract class Move {
+public class Move<T extends Cell> {
 
-    protected Entity entity;
+    private Entity entity;
 
-    public Move(Entity entity){
+    private T cell;
+
+    public Move(Entity entity,T cell){
+        this.entity = entity;
+        this.cell = cell;
+    }
+
+    public Move(T cell,Entity entity){
+        this.cell = cell;
         this.entity = entity;
     }
 
@@ -22,5 +30,10 @@ public abstract class Move {
     }
 
 
+    public T getCell(){return this.cell;}
+
+    public void setCell(T cell){
+        this.cell = cell;
+    }
 
 }

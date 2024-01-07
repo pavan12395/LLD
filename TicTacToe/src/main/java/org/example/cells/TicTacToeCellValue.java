@@ -1,6 +1,6 @@
-package org.example.game;
+package org.example.cells;
 
-public class CellValue {
+public class TicTacToeCellValue {
 
 
     private int row;
@@ -36,7 +36,7 @@ public class CellValue {
     }
 
 
-    public CellValue(int row,int col,String value){
+    public TicTacToeCellValue(int row,int col,String value){
         this.row = row;
         this.col = col;
         this.value = value;

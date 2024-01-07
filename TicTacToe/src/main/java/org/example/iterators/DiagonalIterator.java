@@ -1,11 +1,11 @@
 package org.example.iterators;
 
 
-import org.example.game.CellValue;
+import org.example.cells.TicTacToeCellValue;
 
 import java.util.Iterator;
 
-public class DiagonalIterator implements Iterator<CellValue> {
+public class DiagonalIterator implements Iterator<TicTacToeCellValue> {
     private int row;
     private String cells[][];
 
@@ -24,8 +24,8 @@ public class DiagonalIterator implements Iterator<CellValue> {
     }
 
     @Override
-    public CellValue next(){
-        CellValue ans = isRev ? new CellValue(row,2-row,this.cells[row][2-row]) : new CellValue(row,row,this.cells[row][row]);
+    public TicTacToeCellValue next(){
+        TicTacToeCellValue ans = isRev ? new TicTacToeCellValue(row,2-row,this.cells[row][2-row]) : new TicTacToeCellValue(row,row,this.cells[row][row]);
         row = isRev ? row-1 : row+1;
         return ans;
     }

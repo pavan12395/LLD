@@ -31,7 +31,7 @@ public abstract class Entity {
         return this.name.equals(player.getName()) && this.playerSymbol.equals(player.getPlayerSymbol());
     }
 
-    public String flip(){
-        return this.playerSymbol.equals("X") ? "O" : "X";
+    public Entity flip(){
+        return new Player(this.name,this.playerSymbol.equals("X") ? "O" : "X");
     }
 }

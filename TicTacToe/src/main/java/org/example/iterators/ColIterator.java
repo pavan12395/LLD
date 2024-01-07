@@ -1,11 +1,11 @@
 package org.example.iterators;
 
 
-import org.example.game.CellValue;
+import org.example.cells.TicTacToeCellValue;
 
 import java.util.Iterator;
 
-public class ColIterator implements Iterator<CellValue> {
+public class ColIterator implements Iterator<TicTacToeCellValue> {
     private int row;
     private String cells[][];
 
@@ -22,7 +22,7 @@ public class ColIterator implements Iterator<CellValue> {
     }
 
     @Override
-    public CellValue next(){
-        return new CellValue(row,col,this.cells[row++][col]);
+    public TicTacToeCellValue next(){
+        return new TicTacToeCellValue(row,col,this.cells[row++][col]);
     }
 }

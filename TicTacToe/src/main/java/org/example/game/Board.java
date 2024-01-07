@@ -2,30 +2,16 @@ package org.example.game;
 
 
 import org.example.cells.Cell;
-import org.example.players.Entity;
 
-public abstract class Board {
+import java.util.List;
+import java.util.Map;
 
-    private String previousPlayer;
-
-    public Board(){
-        this.previousPlayer = null;
-    }
-
-    protected void setPreviousPlayer(String symbol) {
-        this.previousPlayer = symbol;
-    }
-
-    protected String getPreviousEntity() {
-        return this.previousPlayer;
-    }
+public interface Board {
     public abstract void setCell(Cell cell,String value) throws Exception;
+    public abstract String getCell(Cell cell) throws Exception;
 
-    public abstract String getCell(Cell cell);
+    public abstract boolean isOccupied(Cell cell) throws Exception;
+    public abstract Board copy();
 
-    public abstract boolean isOccupied(Cell cell);
-
-    public abstract String[][] getCells();
-
-    protected abstract boolean validate(Cell cell);
+    public abstract Map<String,Integer> getPlayerMoves();
 }
