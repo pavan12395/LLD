@@ -1,27 +1,26 @@
 Readability
-Extensibility --> (Add an other game)
+Extensibility
 Correctness
 
 
-Features :-
-
-1) GameState should indicate an enum ( PENDING , TIED , OVER) --> (done)
-2) If there is no way a user can win , then we need to indicate that the gameState is tied.
-2) if the gameState is not pending then and If made a move we need to throw an error to the user
+Design Patterns and Principles Learnt :-
 
 
+1) SRP :- A class or method should deal with only one functionality
 
-Board --> set and get of the cells
+2) OCP :- Open for new changes / Closed for modifications (RuleEngine)
 
-RuleEngine --> Checks all types of conditions on a board
+3) LSP :- All subclasses should implement the exact methods provided by Interface or Abstract classes
 
-        Conditions :- Only the conditions
-            BoardState --> previousPlayer , occupied or not shouldnt be interfered.
+4) ISP :- Instead of having a strong-coupling of getCells method from TicTacToeBoard , I can create a board
+          interface which will definitely have String[][] getCells() method
 
-GameEngine --> Manages the Board and Moves
-
-AIEngine --> Should have the ability to getSmartMove and getRandomMove extending Entity.
-
+5) DIP :- Achieving Higher level of Abstraction.
 
 
+Design Patterns :-
+
+1) ProtoType pattern
+2) Chain Responsibility pattern , Singleton Pattern
+3) Factory pattern , Strategy pattern ,state pattern
 

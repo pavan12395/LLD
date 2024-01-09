@@ -10,6 +10,8 @@ import org.example.boards.TicTacToeBoard;
 import org.example.iterators.ColIterator;
 import org.example.iterators.DiagonalIterator;
 import org.example.iterators.RowIterator;
+import org.example.placements.OffensivePlacement;
+import org.example.placements.Placement;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -19,6 +21,12 @@ import java.util.Random;
 public class AIEngine extends Entity {
     public AIEngine(String name,String playerSymbol){
         super(name,playerSymbol);
+    }
+
+
+    public Move makeOptimalMove(){
+        Placement placement = OffensivePlacement.getInstance();
+        return null;
     }
 
     public Move makeRandomMove(Board board, Entity entity) throws Exception {
@@ -105,7 +113,15 @@ public class AIEngine extends Entity {
             throw new Exception("Invalid Board Exception");
         }
     }
-
-
-
 }
+
+/*
+getOptimalMove
+
+Winning move
+Block move
+your fork
+opp fork
+center available
+corner available
+ */

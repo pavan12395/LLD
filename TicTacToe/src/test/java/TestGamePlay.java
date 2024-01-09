@@ -1,16 +1,120 @@
 
 
 
+import org.example.boards.Board;
 import org.example.cells.TicTacToeCell;
 import org.example.game.*;
 import org.example.api.GameEngine;
 import org.example.cells.TicTacToeCell;
+import org.example.placements.DefensivePlacement;
+import org.example.placements.ForkPlacement;
+import org.example.placements.OffensivePlacement;
 import org.example.players.AIEngine;
 import org.example.players.Player;
 import org.junit.Assert;
 import org.junit.Test;
 
 public class TestGamePlay{
+
+
+    @Test
+    public void TestForkDefensivePlacement(){
+        try {
+            GameEngine gameEngine = new GameEngine();
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
+            Player firstPlayer = new Player("1", "X");
+            Player secondPlayer = new Player("2", "O");
+            Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
+            Move<TicTacToeCell> move1 = new Move<TicTacToeCell>(new TicTacToeCell(0,2),secondPlayer);
+            Move<TicTacToeCell> move2 = new Move<TicTacToeCell>(new TicTacToeCell(2,0),firstPlayer);
+            Move<TicTacToeCell> move3 = new Move<TicTacToeCell>(new TicTacToeCell(0,1),secondPlayer);
+            Move<TicTacToeCell> move4 = new Move<TicTacToeCell>(new TicTacToeCell(2,2),firstPlayer);
+            gameEngine.move(game,move);
+            gameEngine.move(game,move1);
+            gameEngine.move(game,move2);
+            gameEngine.move(game,move3);
+            gameEngine.move(game,move4);
+            TicTacToeCell cell = (TicTacToeCell) ForkPlacement.getInstance(true).getCell(game.getBoard(),secondPlayer).get();
+            int row = cell.getRow();
+            int col = cell.getCol();
+            Assert.assertTrue((row==1 || row==2) && col==1);
+        }
+        catch (Exception e){
+            Assert.assertTrue(false);
+        }
+    }
+
+
+    @Test
+    public void TestForkOffensivePlacement(){
+        try {
+            GameEngine gameEngine = new GameEngine();
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
+            Player firstPlayer = new Player("1", "X");
+            Player secondPlayer = new Player("2", "O");
+            Move<TicTacToeCell> move = new Move<TicTacToeCell>(new TicTacToeCell(0,0),firstPlayer);
+            Move<TicTacToeCell> move1 = new Move<TicTacToeCell>(new TicTacToeCell(0,2),secondPlayer);
+            Move<TicTacToeCell> move2 = new Move<TicTacToeCell>(new TicTacToeCell(2,0),firstPlayer);
+            Move<TicTacToeCell> move3 = new Move<TicTacToeCell>(new TicTacToeCell(0,1),secondPlayer);
+            Move<TicTacToeCell> move4 = new Move<TicTacToeCell>(new TicTacToeCell(2,2),firstPlayer);
+            gameEngine.move(game,move);
+            gameEngine.move(game,move1);
+            gameEngine.move(game,move2);
+            gameEngine.move(game,move3);
+            gameEngine.move(game,move4);
+            TicTacToeCell cell = (TicTacToeCell) ForkPlacement.getInstance(false).getCell(game.getBoard(),firstPlayer).get();
+            int row = cell.getRow();
+            int col = cell.getCol();
+            Assert.assertTrue((row==1 || row==2) && col==1);
+        }
+        catch (Exception e){
+            Assert.assertTrue(false);
+        }
+    }
+
+    @Test
+    public void TestDefensivePlacement(){
+        try {
+            GameEngine gameEngine = new GameEngine();
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
+            Player firstPlayer = new Player("1","X");
+            Player secondPlayer = new Player("2","O");
+            Move<TicTacToeCell> move = new Move<>(new TicTacToeCell(0,0),firstPlayer,2);
+            Move<TicTacToeCell> move1 = new Move<>(new TicTacToeCell(2,1),secondPlayer,3);
+            Move<TicTacToeCell> move2 = new Move<>(new TicTacToeCell(1,1),firstPlayer,34);
+            game.move(move);
+            game.move(move1);
+            game.move(move2);
+            TicTacToeCell cell = (TicTacToeCell) DefensivePlacement.getInstance().getCell(game.getBoard(), secondPlayer).get();
+            Assert.assertTrue(cell.getRow() == 2 && cell.getCol() == 2);
+        }
+        catch (Exception e){
+            Assert.assertTrue(false);
+        }
+    }
+
+
+
+    @Test
+    public void TestOffensivePlacement(){
+        try {
+            GameEngine gameEngine = new GameEngine();
+            Game game = gameEngine.start(BoardType.TICTACTOE,new GameConfig(false,false,0,0));
+            Player firstPlayer = new Player("1","X");
+            Player secondPlayer = new Player("2","O");
+            Move<TicTacToeCell> move = new Move<>(new TicTacToeCell(0,0),firstPlayer,2);
+            Move<TicTacToeCell> move1 = new Move<>(new TicTacToeCell(2,1),secondPlayer,3);
+            Move<TicTacToeCell> move2 = new Move<>(new TicTacToeCell(1,1),firstPlayer,34);
+            game.move(move);
+            game.move(move1);
+            game.move(move2);
+            TicTacToeCell cell = (TicTacToeCell) OffensivePlacement.getInstance().getCell(game.getBoard(), firstPlayer).get();
+            Assert.assertTrue(cell.getRow() == 2 && cell.getCol() == 2);
+        }
+        catch (Exception e){
+            Assert.assertTrue(false);
+        }
+    }
 
 
 

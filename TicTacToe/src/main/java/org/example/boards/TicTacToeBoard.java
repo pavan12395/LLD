@@ -8,6 +8,9 @@ import org.example.game.*;
 import org.example.iterators.ColIterator;
 import org.example.iterators.DiagonalIterator;
 import org.example.iterators.RowIterator;
+import org.example.placements.DefensivePlacement;
+import org.example.placements.OffensivePlacement;
+import org.example.players.Entity;
 import org.example.players.Player;
 import org.example.rulengines.Rule;
 import org.example.rulengines.RuleEngine;
@@ -47,25 +50,16 @@ public class TicTacToeBoard implements CellBoard {
 
     private static GameInfo checkForked(RuleEngine ruleEngine,TicTacToeBoard board) {
         try {
+            // fork for a player
             Player players[] = new Player[]{new Player("dummy", "X"), new Player("dummy", "O")};
             for (Player player : players) {
-                boolean isFork = true;
-                outer:
-                for (int i = 0; i < 3; i++) {
-                    for (int j = 0; j < 3; j++) {
-                        Board b = board.copy();
-                        TicTacToeCell cell = new TicTacToeCell(i, j);
-                        if (b.getCell(cell).equals("-")) {
-                            b.setCell(cell, player.getPlayerSymbol());
-                            isFork = isFork && isExistsVictoriousMove((TicTacToeBoard) b, player.flip().getPlayerSymbol(),ruleEngine);
-                            if (!isFork) {
-                                break outer;
-                            }
-                        }
-                    }
-                }
-                if (isFork) {
-                    return new GameInfo(player.flip().getPlayerSymbol(), true, board.getPlayerMoves(), ruleEngine.getState(board));
+                TicTacToeBoard board1 = (TicTacToeBoard) board.copy();
+                Player opponent = (Player)player.flip();
+                TicTacToeCell defensive = (TicTacToeCell) DefensivePlacement.getInstance().getCell(board1,opponent).get();
+                board1.setCell(defensive,opponent.getPlayerSymbol());
+                TicTacToeCell offensive = (TicTacToeCell) OffensivePlacement.getInstance().getCell(board1,player).get();
+                if(offensive!=null){
+                    return new GameInfo(player.getPlayerSymbol(),true,board.getPlayerMoves(),ruleEngine.getState(board),offensive);
                 }
             }
             return new GameInfo("-", false, board.getPlayerMoves(), ruleEngine.getState(board));
@@ -73,24 +67,6 @@ public class TicTacToeBoard implements CellBoard {
         catch(Exception e) {
             return new GameInfo("-",false,board.getPlayerMoves(),new GameState(GameResult.PENDING,"-"));
         }
-    }
-
-
-    private static boolean isExistsVictoriousMove(TicTacToeBoard board,String symbol,RuleEngine ruleEngine) throws Exception {
-        for(int i=0;i<3;i++){
-            for(int j=0;j<3;j++){
-                TicTacToeCell cell = new TicTacToeCell(i,j);
-                if(board.getCell(cell).equals("-")){
-                    Board board1 = board.copy();
-                    board1.setCell(cell,symbol);
-                    GameState state = ruleEngine.getState(board1);
-                    if(state.getWinner().equals(symbol) && state.getGameResult() == GameResult.OVER){
-                        return true;
-                    }
-                }
-            }
-        }
-        return false;
     }
 
     private static GameState checkAllFilledCondition(TicTacToeBoard ticTacToeBoard){

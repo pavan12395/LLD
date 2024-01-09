@@ -1,6 +1,8 @@
 package org.example.game;
 
 
+import org.example.cells.Cell;
+
 import java.util.Map;
 
 public class GameInfo {
@@ -13,6 +15,7 @@ public class GameInfo {
 
     private boolean isFork;
 
+    private Cell forkedCell;
 
 
     private Map<String,Integer> playerMoves;
@@ -49,11 +52,28 @@ public class GameInfo {
     public void setPlayerMoves(Map<String, Integer> playerMoves) {
         this.playerMoves = playerMoves;
     }
+
+
+    public Cell getForkedCell() {
+        return forkedCell;
+    }
+
+    public void setForkedCell(Cell forkedCell) {
+        this.forkedCell = forkedCell;
+    }
     
     public GameInfo(String forkedWinner,boolean isFork,Map<String,Integer> playerMoves,GameState gameState){
         this.isFork = isFork;
         this.forkedWinner = forkedWinner;
         this.playerMoves = playerMoves;
         this.gameState = gameState;
+    }
+
+    public GameInfo(String forkedWinner,boolean isFork,Map<String,Integer> playerMoves,GameState gameState,Cell forkedCell){
+        this.isFork = isFork;
+        this.forkedWinner = forkedWinner;
+        this.playerMoves = playerMoves;
+        this.gameState = gameState;
+        this.forkedCell = forkedCell;
     }
 }
