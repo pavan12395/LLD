@@ -23,4 +23,4 @@ Design Patterns :-
 1) ProtoType pattern
 2) Chain Responsibility pattern , Singleton Pattern
 3) Factory pattern , Strategy pattern ,state pattern
-
+4) Proxy design pattern :- Dont create an Object unless required.

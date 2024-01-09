@@ -4,6 +4,8 @@ import org.example.boards.Board;
 import org.example.players.Entity;
 import org.example.rulengines.RuleEngine;
 
+import java.util.Map;
+
 
 public class Game {
     private String previousPlayerSymbol;
@@ -16,6 +18,7 @@ public class Game {
 
     private GameState gameState;
 
+    private History history;
 
     public Board getBoard() {
         return board;
@@ -76,6 +79,7 @@ public class Game {
         }
         board.setCell(move.getCell(), move.getEntity().getPlayerSymbol());
         this.previousPlayerSymbol = move.getEntity().getPlayerSymbol();
+        history.add(board.copy());
     }
 
     public GameInfo getInfo() throws Exception {
@@ -99,6 +103,15 @@ public class Game {
     private boolean validateMove(Move move) throws Exception{
         String currentPlayerSymbol = move.getEntity().getPlayerSymbol();
         return !currentPlayerSymbol.equals(previousPlayerSymbol) && move.getCell().validate() && !this.board.isOccupied(move.getCell());
+    }
+
+    public void undoMove() throws  Exception {
+        Board board = history.undo();
+        this.board = board;
+        Map<String,Integer> moves = this.board.getPlayerMoves();
+        if(moves.size() != 0){
+            this.previousPlayerSymbol = this.previousPlayerSymbol.equals("X") ? "O" : "X";
+        }
     }
 
 
