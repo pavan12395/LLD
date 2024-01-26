@@ -4,14 +4,15 @@ import org.example.boards.Board;
 
 import java.util.function.Function;
 
-public class Rule<CellBoard,R>{
-    private Function<CellBoard,R> function;
+public class Rule<Board,R>{
+    private Function<Board,R> function;
 
-    public Rule(Function<CellBoard,R> function){
+    public Rule(Function<Board,R> function){
         this.function = function;
     }
 
-    public R getResult(CellBoard board){
+    public R getResult(Board board){
         return function.apply(board);
     }
 }
+

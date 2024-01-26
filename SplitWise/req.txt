@@ -1,0 +1,7 @@
+Requirements :-
+
+1) Add , Edit an Expense , Settle an Expense
+
+2) Add,Edit,Delete a group of Expenses
+
+3)
