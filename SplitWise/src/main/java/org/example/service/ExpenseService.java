@@ -59,14 +59,14 @@ public class ExpenseService {
         return groupIdMap.containsKey(groupId) ? groupIdMap.get(groupId) : new ArrayList<>();
     }
 
-    public void editExpense(Expense expense,User user) throws  Exception {
+    public void editExpense(Expense expense,String userId) throws  Exception {
         if(!this.contains(expense.getId())){
             throw new Exception("Expense doesnt exist");
         }
         else if(!expense.validate()){
             throw new Exception("Please add a valid expense");
         }
-        else if(!expense.getOwnerId().equals(user.getId())){
+        else if(!expense.getOwnerId().equals(userId)){
             throw new Exception("User cant edit the expense");
         }
         else {

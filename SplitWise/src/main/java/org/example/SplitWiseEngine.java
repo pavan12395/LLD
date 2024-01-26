@@ -36,4 +36,14 @@ public class SplitWiseEngine {
             throw new Exception("User not part of the Group");
         }
     }
+
+
+    // writes previously existing object with the newObject , Immutable objects maintained no Inconsistent data encountered.
+    public void editExpense(Expense expense,String userId) throws Exception {
+        ExpenseService.getInstance().editExpense(expense,userId);
+    }
 }
+
+
+/*
+ */
